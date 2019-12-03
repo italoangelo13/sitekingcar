@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-     $user = utf8_encode($_SESSION['usuario']->nome);;
+     $user = utf8_encode($_SESSION['usuario']->nome);
 ?>
 <!DOCTYPE html>
 <html lang="en">

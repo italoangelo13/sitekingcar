@@ -13,9 +13,25 @@ $AnunciosMes = 0;
 $SolicitacoesMes = 0;
 $UsuariosMes = 0;
 
+//Buscando Qtde Usuario
 $sqlusu = "SELECT count(*) as NumUsuarios FROM usuario WHERE MONTH(usudatcadastro) = '".$numMes."'";
 $QtdeUsu = Select($sqlusu);
 $UsuariosMes = $QtdeUsu[0]->NumUsuarios;
+
+//Buscando Qtde Carros
+$sqlcar = "SELECT count(*) as NumCarros FROM carro WHERE MONTH(cardatcadastro) = '".$numMes."'";
+$QtdeCar = Select($sqlcar);
+$UsuariosMes = $QtdeCar[0]->NumCarros;
+
+// //Buscando Qtde publicidades
+// $sqlusu = "SELECT count(*) as NumUsuarios FROM usuario WHERE MONTH(usudatcadastro) = '".$numMes."'";
+// $QtdeUsu = Select($sqlusu);
+// $UsuariosMes = $QtdeUsu[0]->NumUsuarios;
+
+// //Buscando Qtde Anuncios
+// $sqlusu = "SELECT count(*) as NumUsuarios FROM usuario WHERE MONTH(usudatcadastro) = '".$numMes."'";
+// $QtdeUsu = Select($sqlusu);
+// $UsuariosMes = $QtdeUsu[0]->NumUsuarios;
 
 
 ?>
@@ -106,7 +122,7 @@ $UsuariosMes = $QtdeUsu[0]->NumUsuarios;
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="padding:10px;">
             <div class="col-lg-12 bg-painel-dash">
                 <h4 class="alert alert-warning">Ultimas Solicitações de Anuncio</h4>
                 <table class="table table-stripped" width="100%">

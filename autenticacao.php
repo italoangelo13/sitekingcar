@@ -11,7 +11,7 @@
 session_start();
 
 $con =  new PDO("mysql:host=localhost; dbname=kingcar","root","root");//2m56ABz5FnAm7N23
-$sql = $con->prepare("SELECT * FROM usuario WHERE email=? AND senha=?");
+$sql = $con->prepare("SELECT * FROM usuario WHERE USUUSUARIO=? AND senha=?");
 $sql->execute( array($_POST['email'], md5($_POST['senha']) ) );
 
 $row = $sql->fetchObject();  // devolve um único registro
