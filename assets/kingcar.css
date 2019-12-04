@@ -44,3 +44,11 @@
     background: white;
     border-radius: 5px;
   }
+
+
+  #myfooster {
+    background-color: #595959;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }

@@ -1,24 +1,31 @@
 ﻿<?php
-  header("Content-type:text/html; charset=utf8");
+header("Content-type:text/html; charset=utf8");
 
-  require_once('conexaobd.php');
+include_once 'Config/ConexaoBD.php';
+require_once 'Models/Usuarios.php';
+session_start();
 
-  $carros = new Carros();
-  if(isset($_SESSION['usuario'])){
-    $qtd_anuncio = $carros->QtdAnuncio($id = $_SESSION['usuario']->id);  
-  }
+if(isset($_POST["login"])){
+  $u = new Usuarios();
+  $u->AutenticarUsuario($_POST["usuario"],$_POST["senha"]);
+}
+
+  // $carros = new Carros();
+  // if(isset($_SESSION['usuario'])){
+  //   $qtd_anuncio = $carros->QtdAnuncio($id = $_SESSION['usuario']->id);  
+  // }
   
-  if(isset($_POST['attsenha'])){
-    $carros->EditarSenha($id = $_SESSION['usuario']->id);
-  }
+  // if(isset($_POST['attsenha'])){
+  //   $carros->EditarSenha($id = $_SESSION['usuario']->id);
+  // }
 
-  if(isset($_POST['attdados'])){
-    $carros->EditarDados($id = $_SESSION['usuario']->id);
-  }
+  // if(isset($_POST['attdados'])){
+  //   $carros->EditarDados($id = $_SESSION['usuario']->id);
+  // }
 
-  if(isset($_SESSION['usuario'])){
-    $anuncios = $carros->MeusAnuncios($id = $_SESSION['usuario']->id);  
-  }
+  // if(isset($_SESSION['usuario'])){
+  //   $anuncios = $carros->MeusAnuncios($id = $_SESSION['usuario']->id);  
+  // }
   
   //if(isset($_))
 ?>
@@ -691,10 +698,10 @@
     </div>
 
     <!-- Login Form -->
-    <form action="autenticacao.php" method="POST">
-      <input type="text" id="email" class="fadeIn second" name="email" placeholder="login">
+    <form action="conta.php" method="POST">
+      <input type="text" id="usuario" class="fadeIn second" name="usuario" placeholder="login">
       <input type="password" id="password" class="fadeIn third" name="senha" placeholder="password">
-      <input onclick="validation()" type="submit" class="fadeIn fourth" value="Entre">
+      <input onclick="validation()" name="login" type="submit" class="fadeIn fourth" value="Entre">
     </form>
 
     <div id="formFooter">

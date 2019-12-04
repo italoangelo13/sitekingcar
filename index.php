@@ -1,339 +1,151 @@
-﻿<?php
+<?php
 header("Content-type:text/html; charset=utf8");
 
 include_once 'Config/ConexaoBD.php';
 require_once 'Models/Carros.php';
 require_once 'Models/Marcas.php';
+require_once 'Models/Modelos.php';
 
-
-
+$anoAtual = date("Y");
+$contador = 40;
 $carro = new Carros();
 $marca = new Marcas();
+$modelo = new Modelos();
 $listacarro = $carro->SelecionarListaCarros();
 $listaMarcas = $marca->SelecionarListaMarcas();
-
-// $carros = new Carros();
-// if(isset($_GET['salvarEmail'])){
-//   $carros->receberanuncio();
-// }
-
-// if(isset($_GET['filtrar'])){
-//   $listacarro = $codigo->listarCarro();
-// }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Página Inicial</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/sobre.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script src="//code.jivosite.com/widget.js" data-jv-id="M8AgwKTtAZ" async></script>
-
-
-
-  <style>
-    body {
-      background: black;
-      background-image: linear-gradient(black, #595959);
-      background-repeat: no-repeat;
-    }
-
-    .navbar {
-      background: black;
-      margin-bottom: 10px;
-      border-radius: 0;
-    }
-
-    .jumbotron {
-      margin-bottom: 0;
-    }
-
-    select {
-      margin-bottom: 10px;
-      background: black;
-    }
-
-    #myfooster {
-      background-color: #595959;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-
-    .estilo {
-      -webkit-appearance: none;
-      background: #d3d3d3;
-      outline: none;
-      width: 100%;
-      height: 5px;
-      border-radius: 0px;
-    }
-
-    .estilo::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      background: red;
-      cursor: pointer;
-    }
-
-    .estilo::-moz-range-thumb {
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      background: #2796ee;
-      cursor: pointer;
-    }
-
-    #sair {
-      margin: 10px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- navbar -->
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.php">
-          <img src="img/logo.png" alt="logo" style="width:8vh;">
-        </a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-        <ul class="nav navbar-nav">
-          <li><a href="index.php">Inicio</a></li>
-          <li><a href="carros.php">Carros</a></li>
-          <li><a href="anunciar.php">Anuncie</a></li>
-          <li><a href="sobre.php">Sobre</a></li>
-          <li><a href="faleconosco.php">Contato</a></li>
-        </ul>
-        <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Pesquisar">
-          </div>
-          <button type="Pesquisar" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="conta.php"><span class="glyphicon glyphicon-user"></span>
-              <?php if (isset($_SESSION['usuario'])) {
-                echo utf8_encode($_SESSION['usuario']->nome);
-              } else {
-                echo " Minha Conta";
-              }
-              ?>
-            </a>
-          </li>
-          <li><a href="#"><span class="glyphicon glyphicon-earphone"></span> (031) 3671 - 0000</a></li>
-          <li>
-            <?php
-            if (isset($_SESSION['usuario'])) {
-              ?>
-              <form action="index.php">
-                <button id='sair' name="sair" type="submit" class="btn btn-dark">Sair</button></form>
-            <?php
-            }
-            ?>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-
-
-
-
-  <div class="container-right">
-
-    <!-- Carousel container -->
-    <div id="carousel-example-generic" data-interval="2500" class="carousel slide">
-      <!-- Indicators -->
-      <ol class="carousel-indicators hidden-xs">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-      </ol>
-
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        <div class="item active">
-          <!-- tamanho img 1600 x 400-->
-          <img class="img-responsive img-full" src="img/slide1.jpg" alt="">
-        </div>
-        <div class="item">
-          <!-- tamanho img 1600 x 400-->
-          <img class="img-responsive img-full" src="img/slide2.jpg" alt="">
-        </div>
-        <div class="item">
-          <!-- tamanho img 1600 x 400-->
-          <img class="img-responsive img-full" src="img/slide3.jpg" alt="">
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-        <span class="icon-prev"></span>
-      </a>
-      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-        <span class="icon-next"></span>
-      </a>
-    </div>
-    <div class="col-sm-4">
-      <label for="Sel_Marca_Codigo">Marca</label>
-      <select class="form-control form-control-sm">
-        <option value="0" selected="true">Selecionar</option>
-        <?php if ($listaMarcas) : ?>
-          <?php foreach ($listaMarcas as $marca) : ?>
-            <option value="" selected><?php echo $marca->MARDESCRICAO; ?></option>
-          <?php endforeach; ?>
-        <?php else : ?>
-          <option value="0" selected>Selecionar</option>
-        <?php endif; ?>
-      </select>
-    </div>
-    <div class="col-sm-2">
-      <div class="form-group" id="modelos">
-        <label for="modelo">Modelo</label>
-        <select name="nome" id="modelo" class="form-control">
-          <option>
-            <!--Banco de Dados-->
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-sm-1">
-
-      <div class="form-group" id="modelos">
-        <label for="modelo">Ano</label>
-        <select name="nome" id="ano" class="form-control">
-          <option>
-            <!--Banco de Dados-->
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-sm-1">
-      <div class="form-group" id=""" margin>
-            <label for=""></label>
-            <select name=" nome" id="" class="form-control">
-        <?php if ($listacarro) : ?>
-          <?php foreach ($listacarro as $carros) : ?>
-            <option>
-              <!--Banco de Dados-->
-            </option>
-          <?php endforeach; ?>
-        <?php else : ?>
-          <option>Selecionar</option>
-        <?php endif; ?>
-        </select>
-      </div>
-    </div>
-
-
-
-
-
-    <!-- div pai -->
-    <div class="container" style="margin-top: 10px;">
-      <div class="row">
-        <div class="col-sm-10">
-          <div class="row" style="padding:0px;">
-
-            <?php if ($listacarro) : ?>
-              <?php foreach ($listacarro as $carros) : ?>
-                <div class="col-sm-4">
-                  <div class="panel panel-primary">
-
-                    <div class="panel-heading"><strong><a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>" style="color:black ;"><?php echo utf8_encode($carros->CARNOME); ?></a></strong>
-                    </div>
-                    <!--img 150x80-->
-                    <div class="panel-body"><a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>"><img src="img/<?php echo $carros->CARFOTO; ?>" class="img-responsive" style="height: 180px; width: 300px;" alt="<?php echo utf8_encode($carros->CARNOME); ?>" title="<?php echo utf8_encode($carros->CARNOME); ?>"></a>
-                      <!--<div class="panel-body"><a href="detalhescarro.php?id=<?php //echo $carros->id; 
-                                                                                    ?>"><img src="img/<?php //echo $carros->id; 
-                                                                                                                                ?>/<?php //echo $carros->foto; 
-                                                                                                                                                              ?>" class="img-responsive" style="height: 180px; width: 300px;" alt="Image"></a>-->
-                    </div>
-                    <div class="panel-footer">
-                      <span class="label label-success"><?php echo "R$ " . $carros->CARPRECO; ?></span>
-                      <span class="label label-info"><?php echo $carros->CARPORTAS . " Portas"; ?></span>
-                      <span class="label label-warning"><?php echo $carros->COMDESCRICAO; ?></span>
-                      <span class="label label-danger"><?php echo $carros->CORDESCRICAO; ?></span>
-                    </div>
-                  </div>
+<?php include 'header.inc.php'; ?>
+<div class="row" style="margin-top: 10px">
+    <div class="col-lg-12" style="padding: 0px;">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="img/slide1.jpg" alt="First slide">
                 </div>
-              <?php endforeach; ?>
-            <?php else : ?>
-              <label> Nenhum Registro Encontrado! </label>
-            <?php endif; ?>
-          </div><br>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="img/slide2.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="img/slide3.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-
-        <!-- menu a direita -->
-        <div class="col-sm-2">
-          <!-- largura 370 -->
-          <img src="img/test2.jpg" class="img-responsive" height="100%;" alt="HB20">
-        </div>
-
-      </div>
-      <div style="margin: 100px;"></div>
     </div>
+</div>
 
-    <footer class="container-fluid text-center" id="myfooster">
-      <p style="color:white;">KING CAR SEMINOVOS</p>
+<div class="row bg-secondary text-white" style="margin-top: 10px; padding:5px; padding-bottom:15px">
+    <div class="col-lg-12">
+        <h4>Busque por um modelo específico!</h4>
+        <hr>
+    </div>
+    <div class="col-lg-4">
+        <label for="Sel_Marca_Codigo">Marca</label>
+        <select class="form-control form-control">
+            <option value="0" selected="true">Selecionar</option>
+            <?php if ($listaMarcas) : ?>
+                <?php foreach ($listaMarcas as $marca) : ?>
+                    <option value=""><?php echo $marca->MARDESCRICAO; ?></option>
+                <?php endforeach; ?>
+                <!-- <?php else : ?>
+                <option value="0" selected>Selecionar</option>
+            <?php endif; ?> -->
+        </select>
+    </div>
+    <div class="col-lg-4">
+        <label for="Sel_Mod_Codigo">Modelo</label>
+        <select class="form-control form-control">
+            <option value="0" selected="true">Selecionar</option>
+            <?php if ($listaMarcas) : ?>
+                <?php foreach ($listaMarcas as $marca) : ?>
+                    <option value=""><?php echo $marca->MARDESCRICAO; ?></option>
+                <?php endforeach; ?>
+                <!-- <?php else : ?>
+                <option value="0" selected>Selecionar</option>
+            <?php endif; ?> -->
+        </select>
+    </div>
+    <div class="col-lg-1">
+        <label for="Sel_Ano_Codigo">Ano</label>
+        <select class="form-control form-control">
+            <option value="0" selected>Selecionar</option>
+            <?php for ($i = 0; $i <= $contador; $i++) : ?>
+                <?php $anoitem = $anoAtual - $i; ?>
+                <option value="<?php echo $anoitem; ?> "><?php echo $anoitem; ?></option>
+            <?php endfor; ?>
+        </select>
+    </div>
+    <div class="col-lg-2">
+        <br>
+        <button type="submit" class="btn btn-success">Buscar</button>
+    </div>
+</div>
+</div>
 
-      <form action="index.php" method="get" class="form-inline">
+<div class="row" style="margin-top: 10px">
+    <section class="col-lg-10">
+        <div class="container-fluid">
+            <div class="row" style="padding: 10px;">
+                <?php if ($listacarro) : ?>
+                    <?php foreach ($listacarro as $carros) : ?>
+                        <div class="card col-lg-4 bg-secondary" style="width: 100%; padding-top: 10px; padding-bottom: 10px;">
+                            <img class="card-img-top" src="img/<?php echo $carros->CARFOTO; ?>" title="<?php echo strtoupper (utf8_encode($carros->CARNOME)); ?>" alt="<?php echo utf8_encode($carros->CARNOME); ?>">
+                            <div class="card-body bg-light" style="width: 100%">
+                                <h5 class="card-title"><?php echo strtoupper (utf8_encode($carros->CARNOME)); ?></h5>
+                                <p class="card-text">
+                                    <table class="table ">
+                                        <tr>
+                                            <td><strong>Preço</strong></td>
+                                            <td><?php echo "R$ " . $carros->CARPRECO; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Nº Portas</strong></td>
+                                            <td><?php echo strtoupper ($carros->CARPORTAS . " Portas"); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Combustivel</strong></td>
+                                            <td><?php echo $carros->COMDESCRICAO; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Cor</strong></td>
+                                            <td><?php echo $carros->CORDESCRICAO; ?></td>
+                                        </tr>
+                                    </table>
+                                </p>
+                                <a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>" class="btn btn-primary">Mais Detalhes</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="col-lg-12">
+                        <h4 class="alert alert-warning">Nenhum Automovel encontrado!</h4>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="row">
+                <!-- <div class=" "> -->
+                    <nav aria-label="Page navigation example" class="col-lg-12">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                <!-- </div> -->
+            </div>
+        </div>
+    </section>
+    <section class="col-lg-2">
 
-        <label style="color:white;">Receber novidades: </label>
-        <input type="email" name="email" class="form-control" size="50" placeholder="email@usuario.com">
-        <button type="submit" class="btn btn-success " name="salvarEmail">Salvar </button>
-
-      </form>
-    </footer>
-
-</body>
-
-</html>
-<script>
-  $("#marcas").on("change", function() {
-    var CodMarca = $("#marcas").val();
-    //alert(CodMarca);
-
-    $.ajax({
-      url: 'pega_marcas.php',
-      type: 'POST',
-      data: {
-        codigo: CodMarca
-      },
-      beforeSend: function() {
-        $("#modelo").html("Carregando..");
-      },
-      success: function(data) {
-        $("#modelo").html(data);
-      },
-      error: function(data) {
-        $("#modelo").html("Houve um erro ao carregar!");
-      }
-    });
-
-  });
-</script>
+    </section>
+</div>
+<?php include 'footer.inc.php'; ?>
