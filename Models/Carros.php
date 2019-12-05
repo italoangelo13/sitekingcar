@@ -16,6 +16,7 @@ class Carros{
         CORDESCRICAO,
         CORCODHEXADECIMAL,
         CARDESTAQUE,
+        CARKM,
         CONCAT('#',CARCOD,' - ',MARDESCRICAO,' ',MODDESCRICAO,' ',CARANO) AS CARNOME
         FROM kgctblcar
         INNER JOIN kgctblmar

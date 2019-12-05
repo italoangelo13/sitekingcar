@@ -97,29 +97,23 @@ $listaMarcas = $marca->SelecionarListaMarcas();
                     <?php foreach ($listacarro as $carros) : ?>
                         <div class="card col-lg-4 bg-secondary" style="width: 100%; padding-top: 10px; padding-bottom: 10px;">
                             <img class="card-img-top" src="img/<?php echo $carros->CARFOTO; ?>" title="<?php echo strtoupper (utf8_encode($carros->CARNOME)); ?>" alt="<?php echo utf8_encode($carros->CARNOME); ?>">
+                            <h5 class="alert alert-secondary" style="margin-top:10px"><?php echo strtoupper (utf8_encode($carros->CARNOME)); ?></h5>
                             <div class="card-body bg-light" style="width: 100%">
-                                <h5 class="card-title"><?php echo strtoupper (utf8_encode($carros->CARNOME)); ?></h5>
                                 <p class="card-text">
-                                    <table class="table ">
+                                    <table class="table">
                                         <tr>
-                                            <td><strong>Preço</strong></td>
-                                            <td><?php echo "R$ " . $carros->CARPRECO; ?></td>
+                                            <td><i class="fas fa-gas-pump"></i> <?php echo $carros->COMDESCRICAO; ?></td>
+                                            <td><i class="fas fa-car-side"></i> <?php echo $carros->CORDESCRICAO; ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Nº Portas</strong></td>
-                                            <td><?php echo strtoupper ($carros->CARPORTAS . " Portas"); ?></td>
+                                        <td colspan="2" class="text-center"><i class="fas fa-tachometer-alt"></i> <?php echo $carros->CARKM." KM"; ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Combustivel</strong></td>
-                                            <td><?php echo $carros->COMDESCRICAO; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Cor</strong></td>
-                                            <td><?php echo $carros->CORDESCRICAO; ?></td>
+                                            <td colspan="2"><h3 class="text-danger text-center"><?php echo "R$ ". $carros->CARPRECO; ?></h3></td>
                                         </tr>
                                     </table>
                                 </p>
-                                <a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>" class="btn btn-primary">Mais Detalhes</a>
+                                <a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>" class="btn btn-primary btn-block">Quero Este Carro</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
