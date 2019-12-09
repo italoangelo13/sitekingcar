@@ -1,6 +1,13 @@
 <?php
 
 class Modelos{
+    public $id;
+    public $descricao;
+    public $codMarca;
+    public $dtCadastro;
+    public $user;
+
+    
     public function SelecionarListaModelos(){
         $pdo = new PDO(server, user, senha);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

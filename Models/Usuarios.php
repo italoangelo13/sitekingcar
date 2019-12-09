@@ -15,6 +15,19 @@ class Usuarios
         }
     }
 
+    public function SelecionarNumUsuarios($sql)
+    {
+        $pdo = new PDO(server, user, senha);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $smtp = $pdo->prepare($sql);
+        $smtp->execute();
+
+       
+        return $result = $smtp->fetchAll(PDO::FETCH_CLASS);
+        
+    }
+
     public function AutenticarUsuario($usuario, $senha)
     {
         $pdo = new PDO(server, user, senha);

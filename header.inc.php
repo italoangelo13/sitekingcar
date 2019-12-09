@@ -15,6 +15,14 @@
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/fontawesome/js/all.min.js"></script>
 <script src="//code.jivosite.com/widget.js" data-jv-id="M8AgwKTtAZ" async></script>
+<script src="assets/kingcar.js"></script>
+<script>
+$(document).ready(function () {
+    $("#_ddlMarca").change(function(){ 
+        CarregaDdlModelo();
+    });
+});
+</script>
 </head>
 
 <body  style="background: black;">

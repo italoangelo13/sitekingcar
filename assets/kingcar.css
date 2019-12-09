@@ -52,3 +52,19 @@
     left: 0;
     right: 0;
   }
+
+
+
+  .box-pesquisa{
+    border: 1px solid #000;
+    width: 100%;
+  }
+
+
+  .display-hide{
+    display: none;
+}
+
+.display-show{
+    display: block;
+}

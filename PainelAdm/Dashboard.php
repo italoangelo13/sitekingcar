@@ -1,10 +1,15 @@
 <?php
-require_once('conexaobdAdmin.php');
+require_once('../Config/ConexaoBD.php');
+require_once('../Models/Usuarios.php');
+require_once('../Models/Carros.php');
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 $mes = strftime('%B de %Y', strtotime('today'));
 $numMes = date("m");
 
+//INSTANCIANDO OBJETOS
+$USUARIO = new Usuarios(); 
+$CARRO = new Carros();
 
 //INFORMAÇÕES DO DASHBOARD
 
@@ -14,14 +19,14 @@ $SolicitacoesMes = 0;
 $UsuariosMes = 0;
 
 //Buscando Qtde Usuario
-$sqlusu = "SELECT count(*) as NumUsuarios FROM usuario WHERE MONTH(usudatcadastro) = '".$numMes."'";
-$QtdeUsu = Select($sqlusu);
+$sqlusu = "SELECT count(*) as NumUsuarios FROM KGCTBLUSU WHERE MONTH(usudatcadastro) = '".$numMes."'";
+$QtdeUsu = $USUARIO->SelecionarNumUsuarios($sqlusu);
 $UsuariosMes = $QtdeUsu[0]->NumUsuarios;
 
 //Buscando Qtde Carros
-$sqlcar = "SELECT count(*) as NumCarros FROM carro WHERE MONTH(cardatcadastro) = '".$numMes."'";
-$QtdeCar = Select($sqlcar);
-$UsuariosMes = $QtdeCar[0]->NumCarros;
+$sqlcar = "SELECT count(*) as NumCarros FROM KGCTBLCAR WHERE MONTH(cardatcadastro) = '".$numMes."'";
+$QtdeCar = $CARRO->SelecionarNumCarros($sqlcar);
+$CarrosMes = $QtdeCar[0]->NumCarros;
 
 // //Buscando Qtde publicidades
 // $sqlusu = "SELECT count(*) as NumUsuarios FROM usuario WHERE MONTH(usudatcadastro) = '".$numMes."'";
@@ -42,12 +47,12 @@ $UsuariosMes = $QtdeCar[0]->NumCarros;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fontello/css/fontello.css">
-    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fontello/css/fontello.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="assets/bootstrap/css/bootstrap.min.js"></script>
-  <script src="assets/fontawesome/js/all.min.js"></script>
+  <script src="../assets/bootstrap/css/bootstrap.min.js"></script>
+  <script src="../assets/fontawesome/js/all.min.js"></script>
     <link rel="stylesheet" href="assets/kingcar.css">
 </head>
 <body class="bg-dash">

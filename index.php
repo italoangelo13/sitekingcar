@@ -48,11 +48,11 @@ $listaMarcas = $marca->SelecionarListaMarcas();
     </div>
     <div class="col-lg-4">
         <label for="Sel_Marca_Codigo">Marca</label>
-        <select class="form-control form-control">
+        <select class="form-control form-control" id="_ddlMarca">
             <option value="0" selected="true">Selecionar</option>
             <?php if ($listaMarcas) : ?>
                 <?php foreach ($listaMarcas as $marca) : ?>
-                    <option value=""><?php echo $marca->MARDESCRICAO; ?></option>
+                    <option value="<?php echo $marca->MARCOD; ?>"><?php echo $marca->MARDESCRICAO; ?></option>
                 <?php endforeach; ?>
                 <!-- <?php else : ?>
                 <option value="0" selected>Selecionar</option>
@@ -61,18 +61,11 @@ $listaMarcas = $marca->SelecionarListaMarcas();
     </div>
     <div class="col-lg-4">
         <label for="Sel_Mod_Codigo">Modelo</label>
-        <select class="form-control form-control">
+        <select class="form-control form-control" id="_ddlModelo">
             <option value="0" selected="true">Selecionar</option>
-            <?php if ($listaMarcas) : ?>
-                <?php foreach ($listaMarcas as $marca) : ?>
-                    <option value=""><?php echo $marca->MARDESCRICAO; ?></option>
-                <?php endforeach; ?>
-                <!-- <?php else : ?>
-                <option value="0" selected>Selecionar</option>
-            <?php endif; ?> -->
         </select>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-2">
         <label for="Sel_Ano_Codigo">Ano</label>
         <select class="form-control form-control">
             <option value="0" selected>Selecionar</option>
@@ -89,31 +82,65 @@ $listaMarcas = $marca->SelecionarListaMarcas();
 </div>
 </div>
 
-<div class="row" style="margin-top: 10px">
+<div class="row bg-secondary" style="padding:5px; margin-top:10px;">
+    <div class="col-lg-12 text-warning bg-light">
+        <h3><small><i class="icone-crown"></i></small> Top 10 mais visitados</h3>
+    </div>
+</div>
+
+<div class="row bg-secondary" style="margin-top: 0px">
     <section class="col-lg-10">
         <div class="container-fluid">
             <div class="row" style="padding: 10px;">
                 <?php if ($listacarro) : ?>
                     <?php foreach ($listacarro as $carros) : ?>
-                        <div class="card col-lg-4 bg-secondary" style="width: 100%; padding-top: 10px; padding-bottom: 10px;">
-                            <img class="card-img-top" src="img/<?php echo $carros->CARFOTO; ?>" title="<?php echo strtoupper (utf8_encode($carros->CARNOME)); ?>" alt="<?php echo utf8_encode($carros->CARNOME); ?>">
-                            <h5 class="alert alert-secondary" style="margin-top:10px"><?php echo strtoupper (utf8_encode($carros->CARNOME)); ?></h5>
-                            <div class="card-body bg-light" style="width: 100%">
-                                <p class="card-text">
-                                    <table class="table">
-                                        <tr>
-                                            <td><i class="fas fa-gas-pump"></i> <?php echo $carros->COMDESCRICAO; ?></td>
-                                            <td><i class="fas fa-car-side"></i> <?php echo $carros->CORDESCRICAO; ?></td>
-                                        </tr>
-                                        <tr>
-                                        <td colspan="2" class="text-center"><i class="fas fa-tachometer-alt"></i> <?php echo $carros->CARKM." KM"; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><h3 class="text-danger text-center"><?php echo "R$ ". $carros->CARPRECO; ?></h3></td>
-                                        </tr>
-                                    </table>
-                                </p>
-                                <a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>" class="btn btn-primary btn-block">Quero Este Carro</a>
+                        <div class="col-lg-4" style="padding-top: 10px; padding-bottom: 10px;">
+                            <div class="card" style="width: 100%;">
+                                <?php if ($carros->CARDESTAQUE == 'N') : ?>
+                                    <div class="card-title text-secondary" style="padding-left:5px; margin:0px;">
+                                        <h6><?php echo strtoupper(utf8_encode($carros->CARNOME)); ?></h6>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="card-title" style="padding-left:5px; margin:0px;">
+                                        <div class="row">
+                                            <div class="col-lg-10">
+                                                <h6 class="text-secondary"><?php echo strtoupper(utf8_encode($carros->CARNOME)); ?></h6>
+                                            </div>
+                                            <div class="col-lg-2"><i class="icone-crown text-warning"></i></div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <img class="card-img-top" src="img/<?php echo $carros->CARFOTO; ?>" title="<?php echo strtoupper(utf8_encode($carros->CARNOME)); ?>" alt="<?php echo utf8_encode($carros->CARNOME); ?>">
+                                <div class="card-body bg-light" style="width: 100%">
+
+                                    <p class="card-text" style="margin:0px">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <i class="fas fa-gas-pump"></i> <?php echo $carros->COMDESCRICAO; ?>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <i class="fas fa-car-side"></i> <?php echo $carros->CORDESCRICAO; ?>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <i class="fas fa-tachometer-alt"></i> <?php echo FormatarValorDecimal($carros->CARKM) . " km"; ?>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <i class="fas fa-map-marker-alt"></i> <?php echo utf8_encode($carros->mundescricao) . " - " . $carros->munuf; ?>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <h3 class="text-danger text-center"><?php echo "R$ " . FormatarMoeda($carros->CARPRECO); ?></h3>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </p>
+                                    <a href="detalhescarro.php?id=<?php echo $carros->CARCOD; ?>" class="btn btn-primary btn-block">Quero Este Carro</a>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -123,19 +150,7 @@ $listaMarcas = $marca->SelecionarListaMarcas();
                     </div>
                 <?php endif; ?>
             </div>
-            <div class="row">
-                <!-- <div class=" "> -->
-                    <nav aria-label="Page navigation example" class="col-lg-12">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-                <!-- </div> -->
-            </div>
+
         </div>
     </section>
     <section class="col-lg-2">
