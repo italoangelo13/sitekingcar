@@ -3,9 +3,13 @@ header("Content-type:text/html; charset=utf8");
 
 include_once '../Config/ConexaoBD.php';
 require_once '../Models/Carros.php';
+require_once '../Models/Marcas.php';
 $numCarros = 0;
 
 $Carro = new Carros();
+$marca = new Marcas();
+$listaMarcas = $marca->SelecionarListaMarcas();
+
 
 //determina o numero de registros que serão mostrados na tela
 $maximo = 10;
@@ -109,6 +113,7 @@ $resultado = $Carro->SelecionaCarrosPaginados($inicio, $maximo);
 
         <div class="row" style="margin-top: 10px;">
             <div class="col-lg-12">
+            <?php var_dump($resultado) ?>;
                 <?php if ($resultado) : ?>
                     <table class="table table-stripped">
                         <thead>
@@ -138,9 +143,9 @@ $resultado = $Carro->SelecionaCarrosPaginados($inicio, $maximo);
                             </th>
                         </thead>
                         <tbody>
-                            <? foreach ($linha as $resultado) : ?>
+                            <? foreach ($resultado as $carros) : ?>
                                 <tr>
-                                    <td><?php echo $linha->CARCOD; ?></td>
+                                    <td><?php echo $carros['CARCOD']; ?></td>
                                 </tr>
                             <? endforeach ?>
                         </tbody>
@@ -247,8 +252,8 @@ $resultado = $Carro->SelecionaCarrosPaginados($inicio, $maximo);
                                                 <option value="<?php echo $marca->MARCOD; ?>"><?php echo $marca->MARDESCRICAO; ?></option>
                                             <?php endforeach; ?>
                                             <!-- <?php else : ?>
-                <option value="0" selected>Selecionar</option>
-            <?php endif; ?> -->
+                                            <option value="0" selected>Selecionar</option>
+                                        <?php endif; ?> -->
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-6">

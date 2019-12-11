@@ -71,9 +71,24 @@ class Carros{
         $pdo = new PDO(server, user, senha);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $smtp = $pdo->prepare("SELECT * FROM KGCTBLCAR LIMIT $inicio,$maximo");
+        $smtp = $pdo->prepare("SELECT CARCOD,
+        CARNOME,
+        CARCODMARCA,
+        CARCODMODELO,
+        CARPRECO,
+        CARANO,
+        CARFOTO,
+        CARCODSTATUS,
+        CARKM,
+        CARCODCAMBIO,
+        CARPORTAS,
+        CARCODCOMBUSTIVEL,
+        CARCODCOR,
+        CARPLACA,
+        CARTROCA,
+        CARDESTAQUE FROM KGCTBLCAR LIMIT $inicio,$maximo");
         $smtp->execute();
-
+var_dump($smtp->queryString);
        
         return $result = $smtp->fetchAll(PDO::FETCH_CLASS);
     }
